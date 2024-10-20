@@ -1,0 +1,126 @@
+//array implementation of stack
+#include <stdio.h>
+#include <stdlib.h>
+#define max 100
+typedef struct{
+    int rear,front,size;
+    int array[max];
+}queue;
+
+void init(queue* q){
+    q->front=0;
+    q->rear=-1;
+    q->size=0;
+}
+
+int isFull(queue* q){
+    return q->size==max;
+}
+
+int isEmpty(queue* q){
+    return q->size == 0;
+}
+
+void enqueue(queue* q,int data){
+    if (isFull(q)){
+        printf("queue is full");
+        return;
+    }
+    q->rear=(q->rear+1)%max;
+    q->array[q->rear]=data;
+    q->size++;
+    
+    
+}
+int dequeue(queue* q){
+    if (isEmpty(q)){
+        printf("queue is empty");
+        return -1;
+        }
+        int data =q->array[q->front];
+        q->size--;
+       return data;
+        
+    
+}
+int front(queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty\n");
+        return -1; 
+    }
+    return q->array[q->front];
+}
+
+
+void printqueue(queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Queue elements: ");
+    for (int i = 0; i < q->size; i++) {
+        int index = (q->front + i) % max;
+        printf("%d ", q->array[index]);
+    }
+}
+
+
+int main(){
+    queue q;
+    init(&q);
+    
+    int choice,value;
+    while(1){
+        printf("queue operations :\n");
+        printf("1.enqueue\n");
+        printf("2.dequeue\n");
+        printf("3.isempty\n");
+        printf("4.isfull:\n");
+        printf("print queue:\n");
+        printf("enter your choice :\n");
+        scanf("%d",&choice);
+        
+        switch(choice){
+            case 1:
+            printf("enter value to enqueue:");
+            scanf("%d",&value);
+            enqueue(&q,value);
+            break;
+            
+        case 2:
+       value=dequeue(&q);
+       if(value!=-1){
+           printf("dequeued value:%d\n",value);
+       }
+        break;
+        
+        case 3:
+       if (isEmpty(&q)){
+           printf("queue is empty");
+       }
+           else{
+               printf("queue is not empty");
+               
+           }
+       
+        break;
+        
+        case 4:
+        if(isFull(&q)){
+            printf("Queue is full");
+            
+        }else{
+            printf("queue is not full");
+        }
+        break;
+        case 5:
+        printqueue(&q);
+        break;
+        
+        default:
+        printf("invalid choice");
+        
+        }
+    }
+    return 0;
+}
