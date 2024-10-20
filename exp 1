@@ -1,0 +1,102 @@
+//array implementation of stack
+#include <stdio.h>
+#define max 10
+typedef struct{
+    int items[max];
+    int top;
+}stack;
+
+void initialize(stack *s){
+    s->top=-1;
+}
+
+int isFull(stack *s){
+    return s->top==max-1;
+}
+
+int isEmpty(stack *s){
+    return s->top == -1;
+}
+
+void push(stack *s,int data){
+    if (isFull(s)){
+        printf("stack is full");
+        
+    }else{
+        s->top++;
+        s->items[s->top]=data;
+        printf("%d is pushed into stack",data);
+    }
+}
+int pop(stack *s){
+    if (isEmpty(s)){
+        printf("Stack is empty");
+        return -1;
+        
+    }else{
+        int data =s->items[s->top];
+        s->top--;
+        printf("%d popped from the stack",data);
+        return data;
+        
+    }
+}
+int peek(stack *s){
+    if (isEmpty(s)){
+        printf("Stack is empty");
+        return -1;
+        
+    }else{
+        int data =s->items[s->top];
+        printf("%d peeked from the stack",data);
+        return data;
+        
+    }
+}
+int getTotalitems(stack *s){
+    return s->top+1;
+}
+int main(){
+    stack mystack;
+    initialize(&mystack);
+    
+    int choice,value;
+    while(1){
+        printf("stack operations :\n");
+        printf("1.push\n");
+        printf("2.pop\n");
+        printf("3.peek\n");
+        printf("4.total items:\n");
+        printf("enter your choice :\n");
+        scanf("%d",&choice);
+        
+        switch(choice){
+            case 1:
+            if (isFull(&mystack)){
+                printf("stack is full");
+                
+            }else{
+                printf("enter the value to push:");
+                scanf("%d",&value);
+                push(&mystack,value);
+            }
+            break;
+            
+        case 2:
+        pop(&mystack);
+        break;
+        
+        case 3:
+        peek(&mystack);
+        break;
+        
+        case 4:
+        printf("total items are:\n");
+        
+        default:
+        printf("invalid choice");
+        
+        }
+    }
+    return 0;
+}
